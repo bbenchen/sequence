@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2017 SuperDream Inc. <http://www.superdream.me>
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>me.superdream</groupId>
+    <artifactId>sequence</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>${project.artifactId}</name>
+    <inceptionYear>2017</inceptionYear>
+    <description>使用FastJSON支持AkkaHttp的JSON序列化与反序列化</description>
+    <url>http://10.0.0.249/superdream/sequence</url>
+
+    <organization>
+        <name>Super Dream</name>
+        <url>http://www.superdream.me</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>cxb</id>
+            <name>Chen Xianbin</name>
+            <email>chenxianbin@superdream.me</email>
+            <organization>Super Dream</organization>
+            <organizationUrl>http://www.superdream.me</organizationUrl>
+            <roles>
+                <role>CTO</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:http://10.0.0.249/superdream/sequence.git</connection>
+        <developerConnection>scm:git:http://10.0.0.249/superdream/sequence.git</developerConnection>
+        <url>http://10.0.0.249/superdream/sequence</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.jdkVersion>1.8</project.build.jdkVersion>
+        <slf4j.version>1.7.25</slf4j.version>
+        <ssdb4j.version>9.4</ssdb4j.version>
+        <jedis.version>2.9.0</jedis.version>
+        <apache.curator.version>3.3.0</apache.curator.version>
+    </properties>
+
+    <dependencies>
+        <!-- SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- SSDB4J -->
+        <dependency>
+            <groupId>org.nutz</groupId>
+            <artifactId>ssdb4j</artifactId>
+            <version>${ssdb4j.version}</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.nutz</groupId>
+                    <artifactId>nutz</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Apache Curator -->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>${apache.curator.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.5.1-alpha</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-test</artifactId>
+            <version>${apache.curator.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${project.build.jdkVersion}</source>
+                    <target>${project.build.jdkVersion}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>superdream-releases</id>
+            <name>Maven SuperDream Mirror</name>
+            <url>http://10.0.0.199:9091/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>superdream-snapshots</id>
+            <name>SuperDream Snapshots</name>
+            <url>http://10.0.0.199:9091/content/repositories/snapshots/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus-releases</id>
+            <name>Maven SuperDream Mirror</name>
+            <url>http://10.0.0.199:9091/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <id>superdream-releases</id>
+            <name>SuperDream Releases</name>
+            <url>http://10.0.0.199:9091/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>superdream-snapshots</id>
+            <name>SuperDream Snapshots</name>
+            <url>http://10.0.0.199:9091/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
